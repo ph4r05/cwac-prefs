@@ -36,8 +36,17 @@ public class SQLCipherStrategy extends AbstractSQLStrategy implements
                            LoadPolicy loadPolicy) {
     super(loadPolicy);
     SQLiteDatabase.loadLibs(ctxt);
+    this.key = key;  
     db=new Helper(ctxt, key).getWritableDatabase(password);
   }
+  
+  public SQLCipherStrategy(Context ctxt, String key, String dbName, String password, 
+                           LoadPolicy loadPolicy) {
+    super(loadPolicy);
+    SQLiteDatabase.loadLibs(ctxt);
+    this.key = key;
+    db=new Helper(ctxt, dbName).getWritableDatabase(password);
+  }  
 
   public void close() {
     db.close();

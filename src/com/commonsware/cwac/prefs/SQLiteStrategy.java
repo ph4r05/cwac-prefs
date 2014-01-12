@@ -30,6 +30,12 @@ public class SQLiteStrategy extends AbstractSQLStrategy implements
     this.key=key;
     helper=new Helper(ctxt, key);
   }
+  
+  public SQLiteStrategy(Context ctxt, String key, String dbName, LoadPolicy loadPolicy) {
+    super(loadPolicy);
+    this.key=key;
+    helper=new Helper(ctxt, dbName);
+  }
 
   public void close() {
     helper.close();
