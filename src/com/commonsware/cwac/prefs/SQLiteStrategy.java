@@ -70,9 +70,14 @@ public class SQLiteStrategy extends AbstractSQLStrategy implements
   }
 
   public void load(Map<String, Object> cache) {
-    load(helper.getReadableDatabase()
-               .rawQuery("SELECT key, value, type FROM prefs", null),
-         cache);
+    android.database.Cursor c = helper.getReadableDatabase()
+               .rawQuery("SELECT key, value, type FROM prefs", null);
+    load(c, cache);
+    if (c!=null){
+      try {
+        c.close();
+      } catch(Exception e){ }
+    }
   }
 
   private static class Helper extends SQLiteOpenHelper {

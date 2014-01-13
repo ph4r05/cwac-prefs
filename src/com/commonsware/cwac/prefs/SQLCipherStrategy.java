@@ -80,7 +80,13 @@ public class SQLCipherStrategy extends AbstractSQLStrategy implements
   }
 
   public void load(Map<String, Object> cache) {
-    load(db.rawQuery("SELECT key, value, type FROM prefs", null), cache);
+    android.database.Cursor c = db.rawQuery("SELECT key, value, type FROM prefs", null);
+    load(c, cache);
+    if (c!=null){
+      try {
+        c.close();
+      } catch(Exception e){ }
+    }
   }
 
   private static class Helper extends SQLiteOpenHelper {
